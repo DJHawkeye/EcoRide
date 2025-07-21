@@ -4,9 +4,6 @@
 # Ignore Composer dependencies
 /vendor/
 
-# Ignore Composer lock file
-# composer.lock
-
 # Ignore logs
 *.log
 
