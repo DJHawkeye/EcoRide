@@ -1,0 +1,18 @@
+# Ignore environment file
+.env
+
+# Ignore Composer dependencies
+/vendor/
+
+# Ignore Composer lock file
+# composer.lock
+
+# Ignore logs
+*.log
+
+# VS Code settings
+.vscode/
+
+# OS-specific junk
+.DS_Store
+Thumbs.db
