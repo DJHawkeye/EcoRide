@@ -1,0 +1,93 @@
+# 🌍 EcoRide — Plateforme de covoiturage éco-responsable
+
+EcoRide est une application web permettant de mettre en relation des conducteurs et des passagers pour partager des trajets. Elle met l'accent sur les préférences écologiques, la simplicité d'utilisation et la fiabilité.
+
+---
+
+## ✅ Prérequis
+
+Avant de commencer, assurez-vous d’avoir les éléments suivants installés :
+
+- PHP >= 8.0
+- MySQL ou MariaDB
+- Composer
+- Git
+- Un environnement de développement local (ex : XAMPP, Laragon, MAMP, ou serveur intégré PHP)
+- Un éditeur de texte (ex : VS Code)
+
+---
+
+## ⚙️ Installation locale
+
+### 1. Cloner le dépôt
+
+utiliser le terminal ou bash
+
+git clone https://github.com/votre-utilisateur/ecoride.git
+cd ecoride
+
+### 2. Installer les dépendances PHP
+
+utiliser le terminal ou bash
+
+composer install
+
+### 3. Configuration de l'environment
+
+Créer un fichier .env à la racine du projet, avec le contenu suivant (adapter selon votre config) :
+
+DB_HOST=localhost
+DB_NAME=ecoride
+DB_USER=root
+DB_PASS=
+
+### 4. Importer la base de données MySQL
+
+Assurez-vous que votre serveur MySQL est actif.
+
+Depuis le terminal, utilisez la commande suivante :
+
+mysql -u root -p ecoride < database/ecoride.sql
+
+Remplacez root par votre nom d’utilisateur MySQL si différent.
+
+Entrez votre mot de passe quand demandé.
+
+Cela créera toutes les tables et les données nécessaires.
+
+### 5. Lancer le projet
+
+Option 1 — Serveur intégré PHP
+
+Dans le terminal:
+
+php -S localhost:8000
+
+Ensuite ouvrez le navigateur et accédez à :
+
+http://localhost:8000
+
+Option 2 — Utiliser XAMPP / Laragon / MAMP
+
+Placez le dossier ecoride dans le dossier htdocs ou équivalent.
+
+Lancez Apache et MySQL via votre panneau de contrôle.
+
+Accédez à :
+
+http://localhost/ecoride
+
+#### Structure du projet
+
+ecoride/
+│
+├── assets/ # Images, logos, templates, etc.
+├── database/ # Fichier SQL d'initialisation
+├── includes/ # Connexion DB, fonctions PHP, logique commune
+├── pages/ # Pages comme contact.php, details.php, etc.
+├── styles/ # Fichiers CSS
+├── vendor/ # Librairies PHP installées avec Composer
+├── .env # Fichier de configuration local
+├── .gitignore
+├── index.php
+└── README.md
