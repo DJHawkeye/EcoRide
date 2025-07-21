@@ -1,0 +1,452 @@
+/* ============================= */
+/* Global Body & Typography Styles */
+/* ============================= */
+body {
+  background-color: #f4fff2;
+  transition: background-image 1s ease-in-out;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+h1,
+h2 {
+  color: #2e5d34;
+}
+
+/* ============================= */
+/* Header & Navigation */
+/* ============================= */
+header,
+nav.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* higher than background images */
+  background-color: #198754; /* bootstrap bg-success fallback */
+}
+
+/* ============================= */
+/* Home Page Specific Styles */
+/* ============================= */
+body.home-page #hero-container {
+  position: relative;
+  width: 100vw; /* full viewport width */
+  height: calc(100vh - 56px);
+  min-height: 650px; /* adjust height as needed */
+  overflow: hidden;
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: 0;
+  border-radius: 0;
+  box-shadow: none;
+  z-index: 0;
+}
+
+body.home-page #hero-container .bg-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  z-index: -1; /* behind content */
+}
+
+body.home-page #hero-container .bg-slide.visible {
+  opacity: 1;
+}
+
+body.home-page #hero-inner {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+  z-index: 1; /* above background images */
+}
+
+body.home-page .welcome-section {
+  margin-bottom: 2rem;
+  color: #2e5d34;
+  background-color: rgba(255, 255, 255, 0.75);
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+body.home-page .search-form-container {
+  background-color: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments for home page */
+@media (max-width: 768px) {
+  body.home-page #hero-inner {
+    padding: 2rem 1rem;
+  }
+  body.home-page .search-form-container {
+    padding: 1.5rem 1rem;
+    max-width: 100%;
+  }
+}
+
+/* ============================= */
+/* Non-Home Page Background Reset */
+/* ============================= */
+body:not(.home-page) {
+  background-image: none !important;
+}
+
+body:not(.home-page) #background-container,
+body:not(.home-page) #hero-container {
+  display: none; /* hide background containers on other pages */
+}
+
+/* ============================= */
+/* Solid Background Section */
+/* ============================= */
+#solid-section {
+  background-color: #2e5d34; /* dark green */
+  color: white;
+}
+
+/* ============================= */
+/* Footer Styles */
+/* ============================= */
+footer {
+  background-color: #1f3d22;
+  color: white;
+  padding: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================= */
+/* Modal Styles */
+/* ============================= */
+#contactModal {
+  z-index: 1050 !important;
+  top: 5vh !important;
+  margin-top: 0 !important;
+  position: fixed !important;
+}
+
+.modal-backdrop {
+  z-index: 1040 !important;
+  position: fixed !important;
+}
+
+body.modal-open {
+  overflow: hidden !important;
+}
+
+/* ============================= */
+/* DETAILS.PHP PAGE SPECIFIC STYLES */
+/* Scoped with .details-page on body */
+/* ============================= */
+body.details-page {
+  background-color: #f9f7f1;
+  color: #3c2f2f;
+}
+
+body.details-page h1,
+body.details-page h4,
+body.details-page h5 {
+  color: #5a4b3b;
+  font-weight: 700;
+}
+
+body.details-page .card {
+  background: #f0e6d2;
+  border: 1px solid #a67b5b;
+  box-shadow: 3px 3px 6px #b29b80;
+}
+
+body.details-page .btn-success {
+  background-color: #7a9a64;
+  border-color: #7a9a64;
+  color: #fff;
+}
+
+body.details-page .btn-success:hover {
+  background-color: #8eb974;
+  border-color: #8eb974;
+  color: #fff;
+}
+
+body.details-page .btn-outline-primary {
+  color: #7a9a64;
+  border-color: #7a9a64;
+}
+
+body.details-page .btn-outline-primary:hover {
+  background-color: #7a9a64;
+  color: white;
+}
+
+body.details-page .alert-success {
+  background-color: #a7c17f;
+  color: #3c2f2f;
+  border: none;
+}
+
+body.details-page .alert-danger {
+  background-color: #c17f5e;
+  color: #3c2f2f;
+  border: none;
+}
+
+/* Driver photo border */
+body.details-page .rounded-circle {
+  border: 3px solid #a67b5b;
+}
+
+/* Layout columns for large screens */
+@media (min-width: 992px) {
+  body.details-page .two-col {
+    display: flex;
+    gap: 1rem;
+  }
+  body.details-page .col-left {
+    flex: 1; /* smaller */
+  }
+  body.details-page .col-right {
+    flex: 2; /* bigger */
+  }
+}
+
+/* Trip Info and Vehicle Info Grids */
+body.details-page .trip-info-grid,
+body.details-page .vehicle-info-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+}
+
+body.details-page .trip-info-grid div,
+body.details-page .vehicle-info-row {
+  flex: 1 1 140px;
+  background: #e6d8c3;
+  border-radius: 0.3rem;
+  padding: 0.6rem 1rem;
+  box-shadow: inset 0 0 6px #b29b80;
+  color: #3c2f2f;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body.details-page .trip-info-grid div span.label,
+body.details-page .vehicle-info-row .label {
+  color: #4b3b2b;
+  font-weight: 700;
+  white-space: nowrap;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+}
+
+body.details-page .trip-info-grid div span.value,
+body.details-page .vehicle-info-row .value {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+  text-align: right;
+}
+
+/* Vehicle info rows specifics */
+body.details-page .vehicle-info-grid {
+  flex-direction: row;
+  gap: 1rem 1.5rem;
+}
+
+body.details-page .vehicle-info-row {
+  flex: 1 1 140px;
+  display: flex;
+  background: #e6d8c3;
+  border-radius: 0.3rem;
+  padding: 0.5rem 1rem;
+  box-shadow: inset 0 0 6px #b29b80;
+  color: #3c2f2f;
+  font-weight: 600;
+  font-size: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Review Container */
+body.details-page #review-container {
+  background: #f0e6d2;
+  border: 1px solid #a67b5b;
+  padding: 1rem;
+  border-radius: 0.4rem;
+}
+
+body.details-page #review-content p {
+  margin-bottom: 0.5rem;
+}
+
+body.details-page .review-navigation button {
+  min-width: 90px;
+}
+
+/* Vehicle Preferences List */
+body.details-page .vehicle-prefs-list,
+body.details-page .vehicle-custom-prefs-list {
+  list-style: none;
+  padding-left: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0;
+  color: #5a4b3b;
+  font-weight: 600;
+}
+
+/* Responsive details page adjustments */
+@media (max-width: 991px) {
+  body.details-page .two-col {
+    flex-direction: column;
+  }
+  body.details-page .col-left,
+  body.details-page .col-right {
+    flex: 1 1 100%;
+  }
+  body.details-page .trip-info-grid div,
+  body.details-page .vehicle-info-row {
+    flex: 1 1 100%;
+  }
+  body.details-page .vehicle-prefs-list,
+  body.details-page .vehicle-custom-prefs-list {
+    padding-left: 0;
+  }
+}
+
+/* ============================= */
+/* Common UI Elements */
+/* ============================= */
+.card h5 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #198754;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.credits-badge {
+  background-color: #a67b5b;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.3rem;
+  margin-left: 0.5rem;
+  min-width: 45px;
+  text-align: center;
+  display: inline-block;
+}
+
+/* ============================= */
+/* Profile Page Header and Role Selector */
+/* ============================= */
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.profile-header h1 {
+  margin-bottom: 0;
+  white-space: nowrap;
+}
+
+.role-form-inline {
+  margin-bottom: 0;
+}
+
+/* ============================= */
+/* Main Page Flex Layout */
+/* ============================= */
+.main-flex {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+}
+
+.col-left,
+.col-right {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.col-left h3,
+.col-right h3 {
+  margin-top: 0;
+}
+
+/* Vehicles section */
+.vehicles-section {
+  margin-bottom: 2rem;
+}
+
+/* ============================= */
+/* Ride Card Styling */
+/* ============================= */
+.ride-card-body {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.ride-info-left,
+.ride-info-right {
+  flex: 1 1 45%;
+  min-width: 250px;
+}
+
+.ride-info-left p,
+.ride-info-right p {
+  margin: 0.2rem 0;
+}
+
+.ride-card-buttons {
+  margin-top: 0.5rem;
+  text-align: right;
+  flex-basis: 100%;
+}
+
+/* ============================= */
+/* Responsive Adjustments */
+/* ============================= */
+@media (max-width: 767.98px) {
+  .main-flex {
+    flex-direction: column;
+  }
+  .ride-card-body {
+    flex-direction: column;
+  }
+  .ride-info-left,
+  .ride-info-right {
+    flex-basis: 100%;
+  }
+  .ride-card-buttons {
+    text-align: left;
+  }
+}
