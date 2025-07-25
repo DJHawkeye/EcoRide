@@ -174,7 +174,7 @@ function buildUrl(array $params): string {
 
             <!-- Max price -->
             <div class="col-md-3 col-6">
-              <label for="max_price" class="form-label mb-1">Prix maximum (Crédits)</label>
+              <label for="max_price" class="form-label mb-1">Prix maximum</label>
               <input type="number" step="0.01" min="0" name="max_price" id="max_price" class="form-control"
                     value="<?= $filterMaxPrice !== null ? htmlspecialchars($filterMaxPrice) : '' ?>">
             </div>

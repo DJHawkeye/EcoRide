@@ -209,7 +209,7 @@ $avgRating = $carpool ? getDriverAverageRating($pdo, $carpool['driver_id']) : 0.
 
       <?php if ($carpool['vehicle']): ?>
       <div class="card shadow-sm mb-4 p-3">
-        <h5>Véhicule Éco <span class="ms-2"><?= displayEcoBadge(trim($carpool['vehicle']['fuel'] ?? '')) ?></span></h5>
+        <h5>Véhicule<span class="ms-2"><?= displayEcoBadge(trim($carpool['vehicle']['fuel'] ?? '')) ?></span></h5>
         <div class="vehicle-info-grid">
           <div class="vehicle-info-row"><span class="label">Plaque :</span><span class="value"><?= htmlspecialchars($carpool['vehicle']['license_plate']) ?></span></div>
           <div class="vehicle-info-row"><span class="label">1ère immatriculation :</span><span class="value"><?= htmlspecialchars($carpool['vehicle']['first_registration']) ?></span></div>

@@ -396,16 +396,3 @@ function renderBookingCard(array $ride): void {
     renderRideCard($ride, 'passenger', false);
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['role'])) {
-    if (verifyCSRFToken($_POST['csrf_token'] ?? '')) {
-        $role = $_POST['role'];
-        if (in_array($role, ['passenger','driver','both'], true)) {
-            $is_driver = in_array($role, ['driver','both']) ? 1 : 0;
-            $is_passenger = in_array($role, ['passenger','both']) ? 1 : 0;
-            $stmt = $pdo->prepare("UPDATE users SET is_driver=?, is_passenger=? WHERE id=?");
-            $stmt->execute([$is_driver, $is_passenger, $userId]);
-        }
-    }
-    header('Location: profile.php');
-    exit;
-}

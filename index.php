@@ -10,7 +10,6 @@
       <section class="welcome-section text-center">
         <h1 class="display-4">Bienvenue sur EcoRide</h1>
         <p class="lead">La plateforme de covoiturage écologique pour vos déplacements.</p>
-        <img src="images/ecoride-banner.jpg" alt="EcoRide" class="img-fluid rounded" />
       </section>
 
       <section class="search-form-container card p-4">

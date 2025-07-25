@@ -13,6 +13,19 @@ if (!isset($_SESSION['user_id'])) {
 }
 $userId = $_SESSION['user_id'];
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['role'])) {
+    if (verifyCSRFToken($_POST['csrf_token'] ?? '')) {
+        $role = $_POST['role'];
+        if (in_array($role, ['passenger','driver','both'], true)) {
+            $is_driver = in_array($role, ['driver','both']) ? 1 : 0;
+            $is_passenger = in_array($role, ['passenger','both']) ? 1 : 0;
+            $stmt = $pdo->prepare("UPDATE users SET is_driver=?, is_passenger=? WHERE id=?");
+            $stmt->execute([$is_driver, $is_passenger, $userId]);
+        }
+    }
+    header('Location: profile.php');
+    exit;
+}
 // Fetch user data
 $stmt = $pdo->prepare("SELECT username, photo, is_driver, is_passenger FROM users WHERE id=?");
 $stmt->execute([$userId]);
@@ -138,10 +151,17 @@ function roleLabel(bool $is_driver, bool $is_passenger): string {
   <!-- User info + role selection -->
   <div class="profile-header">
     <div class="d-flex align-items-center mb-3 mb-md-0">
-      <img src="<?= htmlspecialchars($user['photo'] ?: 'images/profile_default.jpg') ?>"
-           alt="Photo de profil"
-           class="rounded-circle me-3"
-           style="width:80px;height:80px;object-fit:cover;">
+      <form id="photoUploadForm" method="post" enctype="multipart/form-data" action="includes/upload_photo.php" class="me-3" style="cursor:pointer;">
+        <label for="profilePhotoInput" style="display:inline-block;">
+          <img src="<?= htmlspecialchars($user['photo'] ?: 'images/profile_default.jpg') ?>"
+              alt="Photo de profil"
+              class="rounded-circle"
+              style="width:80px; height:80px; object-fit:cover;"
+              title="Cliquez pour changer la photo" />
+        </label>
+        <input type="file" name="photo" id="profilePhotoInput" accept="image/*" style="display:none;" onchange="document.getElementById('photoUploadForm').submit();" />
+        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+      </form>
       <h1 class="mb-0"><?= htmlspecialchars($user['username']) ?></h1>
       <?php if ($is_driver): ?>
         <?php if ($driverRating === 0.0): ?>

@@ -6,8 +6,6 @@ if (session_status() === PHP_SESSION_NONE) {
 
 $currentPage = basename($_SERVER['PHP_SELF']);
 $isLoggedIn = isset($_SESSION['user_id']);
-
-// Default credits display
 $userCredits = null;
 
 if ($isLoggedIn) {
@@ -32,7 +30,7 @@ if ($isLoggedIn) {
   <title>EcoRide</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="/ecoride-project-v2/assets/css/style.css" />
   <script src="https://kit.fontawesome.com/0786b37048.js" crossorigin="anonymous"></script>
 </head>
 

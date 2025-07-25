@@ -114,51 +114,55 @@ CREATE TABLE ride_validations (
     FOREIGN KEY (passenger_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- USERS: 3 users (driver, passenger, admin), various roles & statuses
-INSERT INTO users (username, email, password_hash, photo, created_at, is_driver, is_passenger, credits, role, is_suspended)
-VALUES
-('alice', 'alice@example.com', '$2y$10$wH3QrmzB8f3KHIXZ4CYKxOVyZ44MkBdbqAJ9ZSHtRT7Kl7m5NfB6e', NULL, NOW(), 1, 1, 100, 'user', 0),
-('bob', 'bob@example.com', '$2y$10$wH3QrmzB8f3KHIXZ4CYKxOVyZ44MkBdbqAJ9ZSHtRT7Kl7m5NfB6e', NULL, NOW(), 1, 0, 50, 'user', 0),
-('charlie', 'charlie@example.com', '$2y$10$wH3QrmzB8f3KHIXZ4CYKxOVyZ44MkBdbqAJ9ZSHtRT7Kl7m5NfB6e', NULL, NOW(), 0, 1, 20, 'user', 1),
-('José', 'josé@example.com', '$2y$10$wH3QrmzB8f3KHIXZ4CYKxOVyZ44MkBdbqAJ9ZSHtRT7Kl7m5NfB6e', NULL, NOW(), 0, 0, 2000,'admin', 0);
+START TRANSACTION;
 
--- VEHICLES: 2 vehicles, assigned to Alice (driver)
-INSERT INTO vehicles (user_id, license_plate, first_registration, brand, model, fuel, color, seats, created_at) VALUES
-(1, 'ABC-1234', '2018-05-12', 'Toyota', 'Corolla', 'gasoline', 'blue', 5, NOW()),
-(1, 'XYZ-9876', '2020-11-01', 'Tesla', 'Model 3', 'electric', 'red', 4, NOW());
+-- USERS
+INSERT INTO users (id, username, email, password_hash, photo, created_at, is_driver, is_passenger, credits, role, is_suspended) VALUES
+(1, 'alice', 'alice@example.com', '$2a$12$fBkHs3ERhjfCKtrBtKRBSOCugP2QUtE/Q.A1T97mb3O2ZNoiSj7PW', 'images/profile_default.jpg', NOW(), 1, 1, 100, 'user', 0),
+(2, 'bob', 'bob@example.com', '$2a$12$fBkHs3ERhjfCKtrBtKRBSOCugP2QUtE/Q.A1T97mb3O2ZNoiSj7PW', 'images/profile_default.jpg', NOW(), 1, 0, 50, 'user', 0),
+(3, 'charlie', 'charlie@example.com', '$2a$12$fBkHs3ERhjfCKtrBtKRBSOCugP2QUtE/Q.A1T97mb3O2ZNoiSj7PW', 'images/profile_default.jpg', NOW(), 0, 1, 20, 'user', 1),
+(4, 'José', 'jose@example.com', '$2a$12$fBkHs3ERhjfCKtrBtKRBSOCugP2QUtE/Q.A1T97mb3O2ZNoiSj7PW', 'images/profile_default.jpg', NOW(), 0, 0, 2000, 'admin', 0),
+(5, 'don', 'don@example.com', '$2a$12$fBkHs3ERhjfCKtrBtKRBSOCugP2QUtE/Q.A1T97mb3O2ZNoiSj7PW', 'images/profile_default.jpg', NOW(), 0, 0, 0, 'employee', 0);
 
--- VEHICLE_PREFERENCES: Different prefs for two vehicles
-INSERT INTO vehicle_preferences (vehicle_id, allow_smoking, allow_pets, allow_music, custom_preferences) VALUES
-(1, 0, 1, 1, 'No loud music after 9pm'),
-(2, 1, 0, 1, NULL);
+-- VEHICLES
+INSERT INTO vehicles (id, user_id, license_plate, first_registration, brand, model, fuel, color, seats, created_at) VALUES
+(1, 1, 'ABC-1234', '2018-05-12', 'Toyota', 'Corolla', 'gasoline', 'blue', 5, NOW()),
+(2, 1, 'XYZ-9876', '2020-11-01', 'Tesla', 'Model 3', 'electric', 'red', 4, NOW());
 
--- RIDES: 3 rides with different statuses, drivers, vehicles, and timings
-INSERT INTO rides (driver_id, vehicle_id, departure, destination, departure_time, arrival_time, seats_available, price, created_at, status) VALUES
-(1, 1, 'Paris', 'Lyon', '2025-08-01 09:00:00', '2025-08-01 13:00:00', 3, 25.00, NOW(), 'planned'),
-(1, 2, 'Lyon', 'Marseille', '2025-08-02 14:00:00', '2025-08-02 18:00:00', 4, 30.00, NOW(), 'started'),
-(3, 2, 'Nantes', 'Bordeaux', '2025-07-15 07:30:00', '2025-07-15 12:00:00', 2, 40.00, NOW(), 'ended');
+-- VEHICLE PREFERENCES
+INSERT INTO vehicle_preferences (id, vehicle_id, allow_smoking, allow_pets, allow_music, custom_preferences) VALUES
+(1, 1, 0, 1, 1, 'No loud music after 9pm'),
+(2, 2, 1, 0, 1, NULL);
 
--- BOOKINGS: Bookings on rides for different passengers and seats
-INSERT INTO bookings (ride_id, passenger_id, seats_booked, booked_at) VALUES
-(1, 2, 1, NOW()),
-(1, 4, 2, NOW()),
-(2, 2, 1, NOW()),
-(3, 2, 1, NOW());
+-- RIDES
+INSERT INTO rides (id, driver_id, vehicle_id, departure, destination, departure_time, arrival_time, seats_available, price, created_at, status) VALUES
+(1, 1, 1, 'Paris', 'Lyon', '2025-08-01 09:00:00', '2025-08-01 13:00:00', 3, 20.00, NOW(), 'planned'),
+(2, 1, 2, 'Lyon', 'Marseille', '2025-08-02 14:00:00', '2025-08-02 18:00:00', 4, 15.00, NOW(), 'started'),
+(3, 2, 1, 'Nantes', 'Bordeaux', '2025-07-15 07:30:00', '2025-07-15 12:00:00', 2, 40.00, NOW(), 'ended');
 
--- PROBLEMS: Different statuses of reported problems
-INSERT INTO problems (ride_id, passenger_id, comment, created_at, status) VALUES
-(1, 2, 'Driver was late', NOW(), 'open'),
-(3, 2, 'Car was dirty', NOW(), 'resolved'),
-(2, 4, 'Seatbelt broken', NOW(), 'closed');
+-- BOOKINGS
+INSERT INTO bookings (id, ride_id, passenger_id, seats_booked, booked_at) VALUES
+(1, 1, 2, 1, NOW()),
+(2, 1, 4, 2, NOW()),
+(3, 2, 2, 1, NOW()),
+(4, 3, 2, 1, NOW());
 
--- REVIEWS: Different ratings and status (pending, approved, rejected)
-INSERT INTO reviews (ride_id, passenger_id, rating, comment, created_at, status) VALUES
-(1, 2, 5, 'Great ride!', NOW(), 'approved'),
-(3, 2, 3, 'Okay but could be better.', NOW(), 'pending'),
-(2, 4, 1, 'Very bad experience.', NOW(), 'rejected');
+-- PROBLEMS
+INSERT INTO problems (id, ride_id, passenger_id, comment, created_at, status) VALUES
+(1, 1, 2, 'Driver was late', NOW(), 'open'),
+(2, 3, 2, 'Car was dirty', NOW(), 'resolved'),
+(3, 2, 4, 'Seatbelt broken', NOW(), 'closed');
 
--- RIDE_VALIDATIONS: Validation statuses with/without problems reported
-INSERT INTO ride_validations (ride_id, passenger_id, validated, problem_reported, created_at) VALUES
-(1, 2, 1, 0, NOW()),
-(3, 2, 0, 1, NOW()),
-(2, 4, 1, 0, NOW());
+-- REVIEWS
+INSERT INTO reviews (id, ride_id, passenger_id, rating, comment, created_at, status) VALUES
+(1, 1, 2, 5, 'Great ride!', NOW(), 'approved'),
+(2, 3, 2, 3, 'Okay but could be better.', NOW(), 'pending'),
+(3, 2, 4, 1, 'Very bad experience.', NOW(), 'rejected');
+
+-- RIDE VALIDATIONS
+INSERT INTO ride_validations (id, ride_id, passenger_id, validated, problem_reported, created_at) VALUES
+(1, 1, 2, 1, 0, NOW()),
+(2, 3, 2, 0, 1, NOW()),
+(3, 2, 4, 1, 0, NOW());
+
+COMMIT;
